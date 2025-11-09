@@ -158,7 +158,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { icon: Award, title: 'Google Partner' },
+              { icon: Award, title: 'Google Partner', link: 'https://skillshop.exceedlms.com/student/collection/1830744-les-principes-fondamentaux-du-marketing-digital' },
               { icon: Award, title: 'Semrush Certification', link: 'https://static.semrush.com/academy/certificates/9d8269365c/danny-grangeot_2.pdf' },
             ].map((cert, index) => {
               const Icon = cert.icon;
