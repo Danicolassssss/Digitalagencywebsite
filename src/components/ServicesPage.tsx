@@ -67,7 +67,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
     {
       icon: Smartphone,
       title: 'Applications mobiles',
-      description: 'Développement d\'apps iOS et Android',
+      description: "Développement d'apps iOS et Android",
     },
     {
       icon: PenTool,
@@ -84,6 +84,68 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
       title: 'Social Media',
       description: 'Gestion de communautés en ligne',
     },
+  ];
+
+  // Mots-clés locaux et sectoriels (invisibles côté UI, transmis via JSON-LD)
+  const seoLocalKeywords: string[] = [
+    // Cœur métier local
+    'création site internet Haute‑Saône',
+    'développeur site web Haute‑Saône',
+    'création site internet Dampierre‑sur‑Salon',
+    'agence web proche de Dampierre‑sur‑Salon',
+    'développeur freelance site vitrine Haute‑Saône',
+    'création site WordPress Vesoul',
+    'création site WordPress Gray',
+    'création site WordPress Dampierre',
+    'refonte site internet Haute‑Saône',
+    'maintenance site web Haute‑Saône',
+    'développement web Bourgogne‑Franche‑Comté',
+    // SEO local
+    'SEO local Haute‑Saône',
+    'référencement naturel Vesoul',
+    'référencement naturel Gray',
+    'référencement naturel Dampierre‑sur‑Salon',
+    'consultant SEO Haute‑Saône',
+    'optimisation Google Business Profile Haute‑Saône',
+    'agence SEO Franche‑Comté',
+    // Territoire & proximité
+    'création site internet à Vesoul',
+    'création site internet à Gray',
+    'développeur web à Dampierre‑sur‑Salon',
+    'agence web Haute‑Saône 70',
+    'création site Franche‑Comté',
+    'création site Bourgogne‑Franche‑Comté',
+    // Secteur: mairies & collectivités
+    'création site mairie Haute‑Saône',
+    'site internet pour mairie petite commune',
+    'portail municipal Dampierre‑sur‑Salon',
+    'refonte site mairie Bourgogne‑Franche‑Comté',
+    'accessibilité RGAA site mairie',
+    // Secteur: artisans / TPE
+    'site vitrine artisan Haute‑Saône',
+    'site internet TPE Vesoul',
+    'site internet TPE Gray',
+    'création site pour commerce local 70',
+    'site professionnel pour auto‑entrepreneur Haute‑Saône',
+    'prise de rendez‑vous en ligne pour artisans',
+    // Secteur: crèches
+    'création site crèche Haute‑Saône',
+    'site internet micro‑crèche informations parents',
+    'site crèche tarifs horaires inscription',
+    'site crèche Bourgogne‑Franche‑Comté',
+    'communication crèche en ligne',
+    // Offres & fonctionnalités
+    'site vitrine responsive rapide',
+    'site WordPress optimisé SEO local',
+    'pages locales multi‑villes Gray Vesoul Dampierre',
+    'optimisation vitesse Core Web Vitals',
+    'suivi et maintenance mensuelle',
+    // Intentions longue traîne
+    'combien coûte un site vitrine en Haute‑Saône',
+    'trouver développeur site web à Dampierre‑sur‑Salon',
+    'meilleure agence création site à Gray',
+    'refaire site mairie petite commune 70',
+    'créer site pour crèche avec formulaire d’inscription',
   ];
 
   return (
@@ -194,7 +256,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             {[
               { step: '01', title: 'Découverte', description: 'Analyse de vos besoins' },
-              { step: '02', title: 'Stratégie', description: 'Définition du plan d\'action' },
+              { step: '02', title: 'Stratégie', description: "Définition du plan d'action" },
               { step: '03', title: 'Création', description: 'Développement de la solution' },
               { step: '04', title: 'Lancement', description: 'Mise en ligne et tests' },
               { step: '05', title: 'Optimisation', description: 'Suivi et amélioration' },
@@ -228,6 +290,29 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
           </Button>
         </div>
       </section>
+
+      {/* JSON-LD SEO Local (invisible UI) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Service',
+          serviceType: 'Création de sites internet & SEO local',
+          provider: {
+            '@type': 'Organization',
+            name: 'Eurekadev',
+            url: 'https://www.eurekadev.fr'
+          },
+          areaServed: [
+            { '@type': 'Place', name: 'Haute-Saône' },
+            { '@type': 'Place', name: 'Vesoul' },
+            { '@type': 'Place', name: 'Gray' },
+            { '@type': 'Place', name: 'Dampierre-sur-Salon' },
+            { '@type': 'Place', name: 'Bourgogne-Franche-Comté' }
+          ],
+          keywords: seoLocalKeywords
+        }) }}
+      />
     </div>
   );
 }
