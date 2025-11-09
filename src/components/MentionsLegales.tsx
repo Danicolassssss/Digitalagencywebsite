@@ -26,7 +26,7 @@ export function MentionsLegales({ onNavigate }: MentionsLegalesProps) {
 
       <section className="mb-6">
         <h2 className="text-xl font-medium mb-2">Contact</h2>
-        <p className="text-sm text-gray-700">Pour toute question, contactez-nous à : <a href="mailto:contact@digitalagency.fr" className="text-blue-600">contact@digitalagency.fr</a></p>
+        <p className="text-sm text-gray-700">Pour toute question, contactez-nous à : <a href="mailto:contact@eurekadev.fr" className="text-blue-600">contact@eurekadev.fr</a></p>
       </section>
 
       <div className="mt-8">

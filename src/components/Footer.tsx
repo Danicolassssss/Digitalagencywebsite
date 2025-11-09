@@ -20,7 +20,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold">D</span>
                 </div>
-                <span className="text-white font-semibold text-lg">DigitalAgency</span>
+                <span className="text-white font-semibold text-lg">Eurekadev</span>
               </div>
               <p className="text-sm mb-4">
                 Votre partenaire digital pour propulser votre présence en ligne et développer votre activité.
@@ -106,15 +106,15 @@ export function Footer({ onNavigate }: FooterProps) {
               <div className="space-y-2 text-sm">
                 <div className="flex items-center space-x-2">
                   <Mail className="w-4 h-4" />
-                  <span>contact@digitalagency.fr</span>
+                  <span>contact@eurekadev.fr</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Phone className="w-4 h-4" />
-                  <span>+33 1 23 45 67 89</span>
+                  <span>+33 6 41 08 66 31</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <MapPin className="w-4 h-4" />
-                  <span>Paris, France</span>
+                  <span>Membrey, France</span>
                 </div>
               </div>
             </div>
@@ -124,7 +124,7 @@ export function Footer({ onNavigate }: FooterProps) {
           <div className="border-t border-gray-800 pt-8 mt-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <div className="text-sm">
-                © {new Date().getFullYear()} DigitalAgency. Tous droits réservés.
+                © {new Date().getFullYear()} Eurekadev. Tous droits réservés.
               </div>
 
               <div className="flex items-center space-x-6 text-sm gap-3">

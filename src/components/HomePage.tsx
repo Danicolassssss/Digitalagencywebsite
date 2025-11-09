@@ -31,27 +31,6 @@ export function HomePage({ onNavigate }: HomePageProps) {
     },
   ];
 
-  const testimonials = [
-    {
-      name: 'Sophie Martin',
-      company: 'E-commerce Fashion',
-      content: 'DigitalAgency a transformé notre présence en ligne. Nos ventes ont augmenté de 150% en 6 mois.',
-      rating: 5,
-    },
-    {
-      name: 'Pierre Dubois',
-      company: 'Restaurant Le Gourmet',
-      content: 'Service exceptionnel ! Notre site web attire maintenant beaucoup plus de réservations.',
-      rating: 5,
-    },
-    {
-      name: 'Marie Leroy',
-      company: 'Cabinet Avocat',
-      content: 'Professionnels, réactifs et créatifs. Je recommande vivement leurs services.',
-      rating: 5,
-    },
-  ];
-
   return (
     <div className="flex flex-col">
       {/* Hero Section */}

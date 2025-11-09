@@ -47,20 +47,20 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
     {
       icon: Phone,
       title: 'Téléphone',
-      content: '+33 1 23 45 67 89',
-      subtitle: 'Lun-Ven 9h-18h',
+      content: '+33 6 41 08 66 31',
+      subtitle: 'Lun-sam 9h-18h',
     },
     {
       icon: Mail,
       title: 'Email',
-      content: 'contact@digitalagency.fr',
+      content: 'contact@eurekadev.fr',
       subtitle: 'Réponse sous 24h',
     },
     {
       icon: MapPin,
       title: 'Adresse',
-      content: '123 Avenue des Champs-Élysées',
-      subtitle: '75008 Paris, France',
+      content: '16 rue de l\'église' ,
+      subtitle: '70180 Membrey, France',
     },
   ];
 
@@ -121,29 +121,6 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                       </Button>
                     )}
                   </div>
-
-                  {/* Cookie Status Alerts */}
-                  {hasConsented && (
-                    <div className="space-y-2 mt-4 ">
-                      {canSaveData && (
-                        <Alert className="border-green-200 bg-green-50 ">
-                          <Cookie className="h-4 w-4 text-green-600" />
-                          <AlertDescription className="text-green-800">
-                            <strong>Sauvegarde automatique activée</strong> - Vos données sont sauvegardées automatiquement pendant que vous tapez.
-                          </AlertDescription>
-                        </Alert>
-                      )}
-
-                      {!canSaveData && (
-                        <Alert className="border-blue-200 bg-blue-50 ">
-                          <Shield className="h-4 w-4 text-blue-600" />
-                          <AlertDescription className="text-blue-800 ">
-                            <strong>Mode privé</strong> - Vos données ne sont pas sauvegardées. Activez les cookies fonctionnels pour la sauvegarde automatique.
-                          </AlertDescription>
-                        </Alert>
-                      )}
-                    </div>
-                  )}
                 </CardHeader>
                 <CardContent>
                   {submitStatus === 'success' ? (

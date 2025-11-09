@@ -135,7 +135,7 @@ export const CookieSettings: React.FC<CookieSettingsProps> = ({ isOpen, onClose 
                     </div>
                     <Switch
                       checked={tempPreferences[type.key]}
-                      onCheckedChange={(checked) => handlePreferenceChange(type.key, checked)}
+                      onCheckedChange={(checked: boolean) => handlePreferenceChange(type.key, checked)}
                       disabled={type.required}
                     />
                   </div>
@@ -206,8 +206,8 @@ export const CookieSettings: React.FC<CookieSettingsProps> = ({ isOpen, onClose 
               <strong>Vos droits :</strong> Conformément au RGPD, vous avez le droit d'accéder,
               de rectifier, de supprimer vos données personnelles et de vous opposer à leur traitement.
               Pour exercer ces droits, contactez-nous à{' '}
-              <a href="mailto:privacy@digitalagency.fr" className="text-blue-600 hover:underline">
-                privacy@digitalagency.fr
+              <a href="mailto:privacy@eurekadev.fr" className="text-blue-600 hover:underline">
+                privacy@eurekadev.fr
               </a>
             </p>
           </div>
