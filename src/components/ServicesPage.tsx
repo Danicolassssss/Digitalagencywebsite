@@ -92,13 +92,12 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
       <section className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <Badge className="bg-white/20 text-white mb-4">Nos Services</Badge>
+            <Badge className="bg-white/20 text-white mb-4">Mes Services</Badge>
             <h1 className="text-4xl md:text-5xl mb-6">
               Solutions digitales complètes pour votre réussite
             </h1>
             <p className="text-lg md:text-xl text-blue-100">
-              De la conception de votre site web à l'acquisition de nouveaux clients, 
-              nous vous accompagnons à chaque étape de votre transformation digitale.
+                De la conception de votre site web à l’acquisition de nouveaux clients, je vous accompagne à chaque étape de votre transformation digitale.
             </p>
           </div>
         </div>
@@ -108,7 +107,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl text-gray-900 mb-4">Nos services principaux</h2>
+            <h2 className="text-3xl md:text-4xl text-gray-900 mb-4">Mes services principaux</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Des solutions complètes et personnalisées pour répondre à tous vos besoins digitaux
             </p>
@@ -159,7 +158,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl text-gray-900 mb-4">Services complémentaires</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Élargissez vos possibilités avec nos services additionnels
+              Élargissez vos possibilités avec mes services additionnels
             </p>
           </div>
 
@@ -186,7 +185,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl text-gray-900 mb-4">Notre processus</h2>
+            <h2 className="text-3xl md:text-4xl text-gray-900 mb-4">Mon processus</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Une méthode éprouvée en 5 étapes pour garantir le succès de votre projet
             </p>

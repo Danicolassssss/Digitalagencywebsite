@@ -13,7 +13,7 @@ import { MentionsLegales } from './components/MentionsLegales';
 import { PolitiqueConfidentialite } from './components/PolitiqueConfidentialite';
 import { CGU } from './components/CGU';
 
-type Page = 'home' | 'about' | 'services' | 'portfolio' | 'blog' | 'contact' | 'mentions' | 'privacy' | 'cgu' ;
+type Page = 'home' | 'about' | 'services' | 'contact' | 'mentions' | 'privacy' | 'cgu' ;
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -50,10 +50,6 @@ export default function App() {
         return <AboutPage onNavigate={handleNavigation} />;
       case 'services':
         return <ServicesPage onNavigate={handleNavigation} />;
-      case 'portfolio':
-        return <PortfolioPage onNavigate={handleNavigation} />;
-      case 'blog':
-        return <BlogPage onNavigate={handleNavigation} />;
       case 'contact':
         return <ContactPage onNavigate={handleNavigation} />;
       case 'mentions':
