@@ -179,12 +179,12 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
               Demander un devis
             </Button>
             <Button
-              onClick={() => onNavigate('portfolio')}
+              onClick={() => onNavigate('services')}
               size="lg"
               variant="outline"
               className="border-white bg-blue-700 text-white hover:bg-white/10"
             >
-              Voir nos réalisations
+              Voir les services
             </Button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { ArrowRight, Globe, TrendingUp, Target, Award, CheckCircle, Star } from 'lucide-react';
+import { ArrowRight, Globe, TrendingUp, Target, Award, CheckCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { ImageWithFallback } from './figma/ImageWithFallback';
@@ -50,17 +50,19 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   onClick={() => onNavigate('contact')}
                   size="lg"
                   className="bg-white text-blue-700 hover:bg-blue-50"
+                  aria-label="Demander un devis"
                 >
                   Demander un devis
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 <Button
-                  onClick={() => onNavigate('portfolio')}
+                  onClick={() => onNavigate('services')}
                   size="lg"
                   variant="outline"
                   className="border-white bg-blue-700  text-white hover:bg-white/10"
+                  aria-label="Voir nos services"
                 >
-                  Voir nos réalisations
+                  Voir nos services
                 </Button>
               </div>
             </div>
@@ -68,21 +70,22 @@ export function HomePage({ onNavigate }: HomePageProps) {
               <div className="relative z-10">
                 <ImageWithFallback
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwbWFya2V0aW5nJTIwdGVhbXxlbnwxfHx8fDE3NjIxNTE1Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Digital Marketing Team"
+                  alt="Équipe marketing digital en réunion"
                   className="rounded-lg shadow-2xl"
+                  loading="lazy"
                 />
               </div>
-              <div className="absolute -bottom-4 -left-4 w-full h-full bg-blue-500/20 rounded-lg"></div>
+              <div className="absolute -bottom-4 -left-4 w-full h-full bg-blue-500/20 rounded-lg" aria-hidden="true"></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="py-12 bg-gray-50">
+      <section className="py-12 bg-gray-50" aria-labelledby="services-title">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl text-gray-900 mb-4">Mes services</h2>
+            <h2 id="services-title" className="text-3xl md:text-4xl text-gray-900 mb-4">Mes services</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Services digitaux adaptés aux besoins des petites entreprises et entrepreneurs.
             </p>
@@ -91,10 +94,10 @@ export function HomePage({ onNavigate }: HomePageProps) {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-shadow">
+                <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-shadow" aria-label={service.title}>
                   <CardContent className="pt-6">
                     <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-blue-600" />
+                      <Icon className="w-6 h-6 text-blue-600" aria-hidden="true" />
                     </div>
                     <h3 className="text-gray-900 mb-2">{service.title}</h3>
                     <p className="text-gray-600 text-sm">{service.description}</p>
@@ -106,11 +109,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
           <div className="text-center mt-12">
             <Button
               onClick={() => onNavigate('services')}
-              variant="outline"
               size="lg"
-              className="border-blue-600 text-blue-600 hover:bg-blue-50"
+              variant="outline"
+              className="border-white bg-blue-700 text-white hover:bg-white/10"
+              aria-label="Découvrir nos services"
             >
-              Découvrir tous nos services
+              Découvrir nos services
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </div>
@@ -124,8 +128,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
             <div>
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1630283017802-785b7aff9aac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjB3b3Jrc3BhY2V8ZW58MXx8fHwxNzYyMTk0ODk2fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Modern Office"
+                alt="Bureaux modernes et collaboration"
                 className="rounded-lg shadow-xl"
+                loading="lazy"
               />
             </div>
             <div>
@@ -143,7 +148,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   'Transparence totale',
                 ].map((item, index) => (
                   <li key={index} className="flex items-center space-x-3">
-                    <CheckCircle className="w-6 h-6 text-blue-600 flex-shrink-0" />
+                    <CheckCircle className="w-6 h-6 text-blue-600 flex-shrink-0" aria-hidden="true" />
                     <span className="text-gray-700">{item}</span>
                   </li>
                 ))}
@@ -166,6 +171,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
               onClick={() => onNavigate('contact')}
               size="lg"
               className="bg-white text-blue-700 hover:bg-blue-50"
+              aria-label="Demander un devis gratuit"
             >
               Demander un devis gratuit
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -175,6 +181,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
               size="lg"
               variant="outline"
               className="border-white bg-blue-700 text-white hover:bg-white/10"
+              aria-label="En savoir plus"
             >
               En savoir plus
             </Button>

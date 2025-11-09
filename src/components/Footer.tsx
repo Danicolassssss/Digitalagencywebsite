@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin, Cookie } from 'lucide-react';
+import { Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import { CookieSettings } from './CookieSettings';
 
@@ -26,7 +26,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 Votre partenaire digital pour propulser votre présence en ligne et développer votre activité.
               </p>
               <div className="flex space-x-4">
-                <a href="https://www.linkedin.com/in/danny-grangeot/" className="hover:text-blue-400 transition-colors" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/danny-grangeot/" className="hover:text-blue-400 transition-colors" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                   <Linkedin className="w-5 h-5" />
                 </a>
               </div>
@@ -37,44 +37,31 @@ export function Footer({ onNavigate }: FooterProps) {
               <h3 className="text-white font-semibold mb-4">Navigation</h3>
               <ul className="space-y-2">
                 <li>
-                  <button
-                    onClick={() => onNavigate('home')}
+                  <a
+                    href="#/"
+                    onClick={(e) => { e.preventDefault(); onNavigate('home'); }}
                     className="hover:text-blue-400 transition-colors text-sm"
                   >
                     Accueil
-                  </button>
+                  </a>
                 </li>
                 <li>
-                  <button
-                    onClick={() => onNavigate('services')}
+                  <a
+                    href="#/services"
+                    onClick={(e) => { e.preventDefault(); onNavigate('services'); }}
                     className="hover:text-blue-400 transition-colors text-sm"
                   >
                     Services
-                  </button>
+                  </a>
                 </li>
                 <li>
-                  <button
-                    onClick={() => onNavigate('portfolio')}
-                    className="hover:text-blue-400 transition-colors text-sm"
-                  >
-                    Portfolio
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => onNavigate('blog')}
-                    className="hover:text-blue-400 transition-colors text-sm"
-                  >
-                    Blog
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => onNavigate('contact')}
+                  <a
+                    href="#/contact"
+                    onClick={(e) => { e.preventDefault(); onNavigate('contact'); }}
                     className="hover:text-blue-400 transition-colors text-sm"
                   >
                     Contact
-                  </button>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -119,24 +106,27 @@ export function Footer({ onNavigate }: FooterProps) {
               </div>
 
               <div className="flex items-center space-x-6 text-sm gap-3">
-                <button
-                  onClick={() => onNavigate('mentions')}
+                <a
+                  href="#/mentions-legales"
+                  onClick={(e) => { e.preventDefault(); onNavigate('mentions'); }}
                   className="hover:text-blue-400 transition-colors"
                 >
                   Mentions légales
-                </button>
-                <button
-                  onClick={() => onNavigate('privacy')}
+                </a>
+                <a
+                  href="#/politique-confidentialite"
+                  onClick={(e) => { e.preventDefault(); onNavigate('privacy'); }}
                   className="hover:text-blue-400 transition-colors"
                 >
                   Politique de confidentialité
-                </button>
-                <button
-                  onClick={() => onNavigate('cgu')}
+                </a>
+                <a
+                  href="#/cgu"
+                  onClick={(e) => { e.preventDefault(); onNavigate('cgu'); }}
                   className="hover:text-blue-400 transition-colors"
                 >
                   CGU
-                </button>
+                </a>
               </div>
             </div>
           </div>

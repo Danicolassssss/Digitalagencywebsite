@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Bloquer les dossiers techniques (adapter si présents)
+Disallow: /node_modules/
+
+Sitemap: https://www.eurekadev.fr/sitemap.xml
+

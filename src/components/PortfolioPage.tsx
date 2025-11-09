@@ -105,6 +105,19 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
     ? projects 
     : projects.filter(project => project.category === filter);
 
+  // Génération JSON-LD dynamique (liste de projets)
+  const projectJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: filteredProjects.map((p, idx) => ({
+      '@type': 'CreativeWork',
+      position: idx + 1,
+      name: p.title,
+      description: p.description,
+      keywords: p.tags.join(', ')
+    }))
+  };
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -152,6 +165,7 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
                 onClick={() => setFilter(category.id)}
                 variant={filter === category.id ? 'default' : 'outline'}
                 className={filter === category.id ? 'bg-blue-600' : ''}
+                aria-label={`Filtrer par la catégorie ${category.label}`}
               >
                 {category.label}
               </Button>
@@ -163,14 +177,16 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
       {/* Projects Grid */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Liste des projets réalisés</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
               <Card key={project.id} className="border-none shadow-lg hover:shadow-xl transition-shadow overflow-hidden group">
                 <div className="relative overflow-hidden">
                   <ImageWithFallback
                     src={project.image}
-                    alt={project.title}
+                    alt={`Projet: ${project.title}`}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
                     <Button
@@ -204,6 +220,7 @@ export function PortfolioPage({ onNavigate }: PortfolioPageProps) {
               </Card>
             ))}
           </div>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }} />
         </div>
       </section>
 
