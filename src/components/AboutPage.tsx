@@ -41,18 +41,17 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
             <div>
               <Badge className="bg-white/20 text-white mb-4">À propos</Badge>
               <h1 className="text-4xl md:text-5xl mb-6">
-                Votre partenaire digital de confiance depuis 2015
+                Votre partenaire digital de confiance
               </h1>
               <p className="text-lg md:text-xl text-blue-100 mb-8">
-                Nous sommes une équipe passionnée d'experts digitaux dédiée à la réussite 
-                de votre entreprise en ligne.
+                  Passionné par le digital, j’accompagne chaque entrepreneur vers la réussite en ligne grâce à mon expertise et à des solutions sur-mesure.
               </p>
               <Button
                 onClick={() => onNavigate('contact')}
                 size="lg"
                 className="bg-white text-blue-700 hover:bg-blue-50"
               >
-                Nous contacter
+                Me contacter
               </Button>
             </div>
             <div>
@@ -66,24 +65,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="bg-white py-16 border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { value: '10+', label: 'Années d\'expérience' },
-              { value: '200+', label: 'Clients satisfaits' },
-              { value: '350+', label: 'Projets réalisés' },
-              { value: '25', label: 'Experts passionnés' },
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl text-blue-600 mb-2">{stat.value}</div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Mission Section */}
       <section className="py-20 bg-gray-50">
