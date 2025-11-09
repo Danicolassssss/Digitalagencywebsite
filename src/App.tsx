@@ -1,47 +1,83 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
-import { Footer } from './components/Footer';
 import { HomePage } from './components/HomePage';
+import { AboutPage } from './components/AboutPage';
 import { ServicesPage } from './components/ServicesPage';
 import { PortfolioPage } from './components/PortfolioPage';
 import { BlogPage } from './components/BlogPage';
 import { ContactPage } from './components/ContactPage';
-import { AboutPage } from './components/AboutPage';
+import { Footer } from './components/Footer';
+import { CookieBanner } from './components/CookieBanner';
+import { CookieProvider } from './contexts/CookieContext';
+import { MentionsLegales } from './components/MentionsLegales';
+import { PolitiqueConfidentialite } from './components/PolitiqueConfidentialite';
+import { CGU } from './components/CGU';
+import { ParametresCookiesPage } from './components/ParametresCookiesPage';
 
-type PageType = 'home' | 'services' | 'portfolio' | 'blog' | 'contact' | 'about';
+type Page = 'home' | 'about' | 'services' | 'portfolio' | 'blog' | 'contact' | 'mentions' | 'privacy' | 'cgu' ;
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<PageType>('home');
+  const [currentPage, setCurrentPage] = useState<Page>('home');
 
-  const handleNavigate = (page: string) => {
-    setCurrentPage(page as PageType);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleNavigation = (page: string) => {
+    setCurrentPage(page as Page);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
-  const renderPage = () => {
+  useEffect(() => {
+    // Remonte en haut de la page lorsqu'on clique sur un lien <a>
+    const onDocClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const anchor = target.closest && target.closest('a') as HTMLAnchorElement | null;
+      if (anchor) {
+        if (typeof window !== 'undefined') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    };
+
+    document.addEventListener('click', onDocClick);
+    return () => document.removeEventListener('click', onDocClick);
+  }, []);
+
+  const renderCurrentPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage onNavigate={handleNavigate} />;
+        return <HomePage onNavigate={handleNavigation} />;
+      case 'about':
+        return <AboutPage onNavigate={handleNavigation} />;
       case 'services':
-        return <ServicesPage onNavigate={handleNavigate} />;
+        return <ServicesPage onNavigate={handleNavigation} />;
       case 'portfolio':
-        return <PortfolioPage onNavigate={handleNavigate} />;
+        return <PortfolioPage onNavigate={handleNavigation} />;
       case 'blog':
-        return <BlogPage onNavigate={handleNavigate} />;
+        return <BlogPage onNavigate={handleNavigation} />;
       case 'contact':
         return <ContactPage />;
-      case 'about':
-        return <AboutPage onNavigate={handleNavigate} />;
+      case 'mentions':
+        return <MentionsLegales onNavigate={handleNavigation} />;
+      case 'privacy':
+        return <PolitiqueConfidentialite onNavigate={handleNavigation} />;
+      case 'cgu':
+        return <CGU onNavigate={handleNavigation} />;
       default:
-        return <HomePage onNavigate={handleNavigate} />;
+        return <HomePage onNavigate={handleNavigation} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header currentPage={currentPage} onNavigate={handleNavigate} />
-      <main>{renderPage()}</main>
-      <Footer onNavigate={handleNavigate} />
-    </div>
+    <CookieProvider>
+      <div className="min-h-screen bg-white">
+        <Header currentPage={currentPage} onNavigate={handleNavigation} />
+        <main>
+          {renderCurrentPage()}
+        </main>
+        <Footer onNavigate={handleNavigation} />
+        <CookieBanner />
+      </div>
+    </CookieProvider>
   );
 }

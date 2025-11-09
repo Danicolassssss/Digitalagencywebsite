@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Send, CheckCircle, Trash2, AlertCircle, Cookie, Shield } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
@@ -8,14 +8,35 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Checkbox } from './ui/checkbox';
 import { Badge } from './ui/badge';
+import { Alert, AlertDescription } from './ui/alert';
+import { useContactForm } from '../hooks/useContactForm';
+import { useCookies } from '../contexts/CookieContext';
 
 export function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
+  const {
+    formData,
+    setFormData,
+    isSubmitting,
+    submitStatus,
+    submitForm,
+    clearSavedData,
+    hasSavedData,
+    canSaveData
+  } = useContactForm();
+  const { hasConsented } = useCookies();
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    if (!agreedToTerms) {
+      alert('Veuillez accepter les conditions générales');
+      return;
+    }
+    await submitForm(formData);
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData({ [field]: value });
   };
 
   const contactInfo = [
@@ -60,7 +81,7 @@ export function ContactPage() {
               Parlons de votre projet
             </h1>
             <p className="text-lg md:text-xl text-blue-100">
-              Obtenez un devis gratuit et personnalisé. Notre équipe d'experts est à votre écoute 
+              Obtenez un devis gratuit et personnalisé. Notre équipe d'experts est à votre écoute
               pour comprendre vos besoins et vous proposer la meilleure solution.
             </p>
           </div>
@@ -75,15 +96,53 @@ export function ContactPage() {
             <div className="lg:col-span-2">
               <Card className="border-none shadow-xl">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-gray-900">
-                    Demander un devis gratuit
-                  </CardTitle>
-                  <p className="text-gray-600">
-                    Remplissez ce formulaire et nous vous recontacterons dans les 24 heures
-                  </p>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="text-2xl text-gray-900">
+                        Demander un devis gratuit
+                      </CardTitle>
+                      <p className="text-gray-600">
+                        Remplissez ce formulaire et nous vous recontacterons dans les 24 heures
+                      </p>
+                    </div>
+                    {hasSavedData && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={clearSavedData}
+                        className="text-red-600 hover:text-red-700"
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        Vider
+                      </Button>
+                    )}
+                  </div>
+
+                  {/* Cookie Status Alerts */}
+                  {hasConsented && (
+                    <div className="space-y-2 mt-4">
+                      {canSaveData && (
+                        <Alert className="border-green-200 bg-green-50">
+                          <Cookie className="h-4 w-4 text-green-600" />
+                          <AlertDescription className="text-green-800">
+                            <strong>Sauvegarde automatique activée</strong> - Vos données sont sauvegardées automatiquement pendant que vous tapez.
+                          </AlertDescription>
+                        </Alert>
+                      )}
+
+                      {!canSaveData && (
+                        <Alert className="border-blue-200 bg-blue-50">
+                          <Shield className="h-4 w-4 text-blue-600" />
+                          <AlertDescription className="text-blue-800">
+                            <strong>Mode privé</strong> - Vos données ne sont pas sauvegardées. Activez les cookies fonctionnels pour la sauvegarde automatique.
+                          </AlertDescription>
+                        </Alert>
+                      )}
+                    </div>
+                  )}
                 </CardHeader>
                 <CardContent>
-                  {submitted ? (
+                  {submitStatus === 'success' ? (
                     <div className="py-12 text-center">
                       <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <CheckCircle className="w-8 h-8 text-green-600" />
@@ -95,70 +154,80 @@ export function ContactPage() {
                     </div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <Label htmlFor="firstName">Prénom *</Label>
-                          <Input
-                            id="firstName"
-                            type="text"
-                            required
-                            placeholder="Jean"
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="lastName">Nom *</Label>
-                          <Input
-                            id="lastName"
-                            type="text"
-                            required
-                            placeholder="Dupont"
-                            className="mt-1"
-                          />
-                        </div>
-                      </div>
+                      {submitStatus === 'error' && (
+                        <Alert className="border-red-200 bg-red-50">
+                          <AlertCircle className="h-4 w-4 text-red-600" />
+                          <AlertDescription className="text-red-800">
+                            Une erreur s'est produite lors de l'envoi. Veuillez réessayer.
+                          </AlertDescription>
+                        </Alert>
+                      )}
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <Label htmlFor="name">Nom complet *</Label>
+                          <Input
+                            id="name"
+                            type="text"
+                            placeholder="Jean Dupont"
+                            value={formData.name}
+                            onChange={(e) => handleInputChange('name', e.target.value)}
+                            required
+                            className="mt-1"
+                          />
+                        </div>
                         <div>
                           <Label htmlFor="email">Email *</Label>
                           <Input
                             id="email"
                             type="email"
+                            placeholder="jean.dupont@exemple.com"
+                            value={formData.email}
+                            onChange={(e) => handleInputChange('email', e.target.value)}
                             required
-                            placeholder="jean.dupont@exemple.fr"
+                            className="mt-1"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <Label htmlFor="phone">Téléphone *</Label>
+                          <Input
+                            id="phone"
+                            type="tel"
+                            placeholder="+33 1 23 45 67 89"
+                            value={formData.phone}
+                            onChange={(e) => handleInputChange('phone', e.target.value)}
+                            required
                             className="mt-1"
                           />
                         </div>
                         <div>
-                          <Label htmlFor="phone">Téléphone</Label>
+                          <Label htmlFor="company">Entreprise</Label>
                           <Input
-                            id="phone"
-                            type="tel"
-                            placeholder="+33 6 12 34 56 78"
+                            id="company"
+                            type="text"
+                            placeholder="Mon Entreprise SARL"
+                            value={formData.company}
+                            onChange={(e) => handleInputChange('company', e.target.value)}
                             className="mt-1"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <Label htmlFor="company">Entreprise</Label>
-                        <Input
-                          id="company"
-                          type="text"
-                          placeholder="Nom de votre entreprise"
-                          className="mt-1"
-                        />
-                      </div>
-
-                      <div>
                         <Label htmlFor="service">Service souhaité *</Label>
-                        <Select required>
+                        <Select
+                          value={formData.service}
+                          onValueChange={(value: string) => handleInputChange('service', value)}
+                        >
                           <SelectTrigger className="mt-1">
                             <SelectValue placeholder="Sélectionnez un service" />
                           </SelectTrigger>
                           <SelectContent>
-                            {services.map((service, index) => (
-                              <SelectItem key={index} value={service}>
+                            {services.map((service) => (
+                              <SelectItem key={service} value={service}>
                                 {service}
                               </SelectItem>
                             ))}
@@ -167,45 +236,53 @@ export function ContactPage() {
                       </div>
 
                       <div>
-                        <Label htmlFor="budget">Budget estimé</Label>
-                        <Select>
-                          <SelectTrigger className="mt-1">
-                            <SelectValue placeholder="Sélectionnez une fourchette" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="1">Moins de 5 000€</SelectItem>
-                            <SelectItem value="2">5 000€ - 10 000€</SelectItem>
-                            <SelectItem value="3">10 000€ - 25 000€</SelectItem>
-                            <SelectItem value="4">Plus de 25 000€</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="message">Décrivez votre projet *</Label>
+                        <Label htmlFor="message">Message *</Label>
                         <Textarea
                           id="message"
+                          placeholder="Décrivez votre projet en détail..."
+                          value={formData.message}
+                          onChange={(e) => handleInputChange('message', e.target.value)}
                           required
-                          placeholder="Parlez-nous de votre projet, vos objectifs, vos contraintes..."
-                          className="mt-1 min-h-32"
+                          rows={5}
+                          className="mt-1"
                         />
                       </div>
 
-                      <div className="flex items-start space-x-2">
-                        <Checkbox id="terms" required />
-                        <Label htmlFor="terms" className="text-sm cursor-pointer">
-                          J'accepte que mes données soient utilisées pour me recontacter concernant 
-                          ma demande. *
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="terms"
+                          checked={agreedToTerms}
+                          onCheckedChange={setAgreedToTerms}
+                        />
+                        <Label htmlFor="terms" className="text-sm">
+                          J'accepte les{' '}
+                          <a href="#" className="text-blue-600 hover:underline">
+                            conditions générales
+                          </a>{' '}
+                          et la{' '}
+                          <a href="#" className="text-blue-600 hover:underline">
+                            politique de confidentialité
+                          </a>
+                          *
                         </Label>
                       </div>
 
                       <Button
                         type="submit"
-                        size="lg"
                         className="w-full bg-blue-600 hover:bg-blue-700"
+                        disabled={isSubmitting || !agreedToTerms}
                       >
-                        <Send className="mr-2 w-5 h-5" />
-                        Envoyer ma demande
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            Envoi en cours...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-4 h-4 mr-2" />
+                            Envoyer la demande
+                          </>
+                        )}
                       </Button>
                     </form>
                   )}
@@ -213,84 +290,52 @@ export function ContactPage() {
               </Card>
             </div>
 
-            {/* Contact Info Sidebar */}
+            {/* Contact Info */}
             <div className="space-y-6">
-              {/* Contact Cards */}
-              {contactInfo.map((info, index) => {
-                const Icon = info.icon;
-                return (
-                  <Card key={index} className="border-none shadow-lg">
-                    <CardContent className="pt-6">
-                      <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-6 h-6 text-blue-600" />
-                        </div>
-                        <div>
-                          <h3 className="text-gray-900 mb-1">{info.title}</h3>
-                          <p className="text-gray-900">{info.content}</p>
-                          <p className="text-sm text-gray-500 mt-1">{info.subtitle}</p>
-                        </div>
+              <Card className="border-none shadow-xl">
+                <CardHeader>
+                  <CardTitle className="text-xl text-gray-900">
+                    Nos coordonnées
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {contactInfo.map((info, index) => (
+                    <div key={index} className="flex items-start space-x-4">
+                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <info.icon className="w-6 h-6 text-blue-600" />
                       </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-
-              {/* Why Choose Us */}
-              <Card className="border-none shadow-lg bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
-                <CardContent className="pt-6">
-                  <h3 className="text-xl mb-4">Pourquoi nous choisir ?</h3>
-                  <ul className="space-y-3">
-                    {[
-                      'Devis gratuit sous 24h',
-                      'Experts certifiés',
-                      'Support dédié',
-                      'Garantie satisfaction',
-                    ].map((item, index) => (
-                      <li key={index} className="flex items-center space-x-2">
-                        <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">{info.title}</h3>
+                        <p className="text-gray-700">{info.content}</p>
+                        <p className="text-sm text-gray-500">{info.subtitle}</p>
+                      </div>
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
 
-              {/* Business Hours */}
-              <Card className="border-none shadow-lg">
-                <CardContent className="pt-6">
-                  <h3 className="text-gray-900 mb-4">Horaires d'ouverture</h3>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Lundi - Vendredi</span>
-                      <span className="text-gray-900">9h00 - 18h00</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Samedi</span>
-                      <span className="text-gray-900">Sur rendez-vous</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Dimanche</span>
-                      <span className="text-gray-900">Fermé</span>
-                    </div>
-                  </div>
+              <Card className="border-none shadow-xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-semibold mb-4">
+                    Besoin d'aide ?
+                  </h3>
+                  <p className="text-blue-100 mb-6">
+                    Notre équipe est disponible pour répondre à toutes vos questions sur nos services et vous accompagner dans votre projet.
+                  </p>
+                  <Button
+                    variant="secondary"
+                    className="w-full bg-white text-blue-600 hover:bg-gray-100"
+                  >
+                    <Phone className="w-4 h-4 mr-2" />
+                    Nous appeler
+                  </Button>
                 </CardContent>
               </Card>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Map Section */}
-      <section className="bg-gray-200 h-96">
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="text-center">
-            <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-            <p className="text-gray-600">Carte interactive</p>
-            <p className="text-sm text-gray-500">123 Avenue des Champs-Élysées, 75008 Paris</p>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
+
