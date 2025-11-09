@@ -26,17 +26,8 @@ export function Footer({ onNavigate }: FooterProps) {
                 Votre partenaire digital pour propulser votre présence en ligne et développer votre activité.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="hover:text-blue-400 transition-colors" aria-label="Facebook">
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a href="#" className="hover:text-blue-400 transition-colors" aria-label="Twitter">
-                  <Twitter className="w-5 h-5" />
-                </a>
-                <a href="#" className="hover:text-blue-400 transition-colors" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/danny-grangeot/" className="hover:text-blue-400 transition-colors" aria-label="LinkedIn">
                   <Linkedin className="w-5 h-5" />
-                </a>
-                <a href="#" className="hover:text-blue-400 transition-colors" aria-label="Instagram">
-                  <Instagram className="w-5 h-5" />
                 </a>
               </div>
             </div>
