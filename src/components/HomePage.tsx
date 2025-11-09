@@ -86,7 +86,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   onClick={() => onNavigate('portfolio')}
                   size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white/10"
+                  className="border-white bg-blue-700  text-white hover:bg-white/10"
                 >
                   Voir nos réalisations
                 </Button>
@@ -245,7 +245,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
               onClick={() => onNavigate('about')}
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white/10"
+              className="border-white bg-bleu-700 text-white hover:bg-white/10"
             >
               En savoir plus
             </Button>
