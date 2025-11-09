@@ -12,7 +12,6 @@ import { CookieProvider } from './contexts/CookieContext';
 import { MentionsLegales } from './components/MentionsLegales';
 import { PolitiqueConfidentialite } from './components/PolitiqueConfidentialite';
 import { CGU } from './components/CGU';
-import { ParametresCookiesPage } from './components/ParametresCookiesPage';
 
 type Page = 'home' | 'about' | 'services' | 'portfolio' | 'blog' | 'contact' | 'mentions' | 'privacy' | 'cgu' ;
 
@@ -56,7 +55,7 @@ export default function App() {
       case 'blog':
         return <BlogPage onNavigate={handleNavigation} />;
       case 'contact':
-        return <ContactPage />;
+        return <ContactPage onNavigate={handleNavigation} />;
       case 'mentions':
         return <MentionsLegales onNavigate={handleNavigation} />;
       case 'privacy':

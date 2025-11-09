@@ -12,7 +12,11 @@ import { Alert, AlertDescription } from './ui/alert';
 import { useContactForm } from '../hooks/useContactForm';
 import { useCookies } from '../contexts/CookieContext';
 
-export function ContactPage() {
+interface ContactPageProps {
+  onNavigate?: (page: string) => void;
+}
+
+export function ContactPage({ onNavigate }: ContactPageProps) {
   const {
     formData,
     setFormData,
@@ -120,9 +124,9 @@ export function ContactPage() {
 
                   {/* Cookie Status Alerts */}
                   {hasConsented && (
-                    <div className="space-y-2 mt-4">
+                    <div className="space-y-2 mt-4 ">
                       {canSaveData && (
-                        <Alert className="border-green-200 bg-green-50">
+                        <Alert className="border-green-200 bg-green-50 ">
                           <Cookie className="h-4 w-4 text-green-600" />
                           <AlertDescription className="text-green-800">
                             <strong>Sauvegarde automatique activée</strong> - Vos données sont sauvegardées automatiquement pendant que vous tapez.
@@ -131,9 +135,9 @@ export function ContactPage() {
                       )}
 
                       {!canSaveData && (
-                        <Alert className="border-blue-200 bg-blue-50">
+                        <Alert className="border-blue-200 bg-blue-50 ">
                           <Shield className="h-4 w-4 text-blue-600" />
-                          <AlertDescription className="text-blue-800">
+                          <AlertDescription className="text-blue-800 ">
                             <strong>Mode privé</strong> - Vos données ne sont pas sauvegardées. Activez les cookies fonctionnels pour la sauvegarde automatique.
                           </AlertDescription>
                         </Alert>
@@ -256,11 +260,19 @@ export function ContactPage() {
                         />
                         <Label htmlFor="terms" className="text-sm">
                           J'accepte les{' '}
-                          <a href="#" className="text-blue-600 hover:underline">
+                          <a
+                            href="#"
+                            onClick={(e) => { e.preventDefault(); onNavigate?.('cgu'); }}
+                            className="text-blue-600 hover:underline"
+                          >
                             conditions générales
                           </a>{' '}
                           et la{' '}
-                          <a href="#" className="text-blue-600 hover:underline">
+                          <a
+                            href="#"
+                            onClick={(e) => { e.preventDefault(); onNavigate?.('privacy'); }}
+                            className="text-blue-600 hover:underline"
+                          >
                             politique de confidentialité
                           </a>
                           *
@@ -313,24 +325,6 @@ export function ContactPage() {
                   ))}
                 </CardContent>
               </Card>
-
-              <Card className="border-none shadow-xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold mb-4">
-                    Besoin d'aide ?
-                  </h3>
-                  <p className="text-blue-100 mb-6">
-                    Notre équipe est disponible pour répondre à toutes vos questions sur nos services et vous accompagner dans votre projet.
-                  </p>
-                  <Button
-                    variant="secondary"
-                    className="w-full bg-white text-blue-600 hover:bg-gray-100"
-                  >
-                    <Phone className="w-4 h-4 mr-2" />
-                    Nous appeler
-                  </Button>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </div>
@@ -338,4 +332,3 @@ export function ContactPage() {
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-import { ArrowRight, Globe, TrendingUp, Target, Award, Users, CheckCircle, Star } from 'lucide-react';
+import { ArrowRight, Globe, TrendingUp, Target, Award, CheckCircle, Star } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { ImageWithFallback } from './figma/ImageWithFallback';
@@ -52,13 +52,6 @@ export function HomePage({ onNavigate }: HomePageProps) {
     },
   ];
 
-  const stats = [
-    { value: '200+', label: 'Clients satisfaits' },
-    { value: '350+', label: 'Projets réalisés' },
-    { value: '10+', label: 'Années d\'expérience' },
-    { value: '98%', label: 'Taux de satisfaction' },
-  ];
-
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -67,11 +60,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl mb-6">
-                Propulsez votre <span className="text-blue-200">présence digitale</span>
+                  Eurekadev — <span className="text-blue-200">L’expertise digitale au service de votre succès</span>
               </h1>
               <p className="text-lg md:text-xl text-blue-100 mb-8">
-                Agence digitale spécialisée en création de sites web, SEO, SEA et marketing digital. 
-                Transformons vos objectifs en résultats concrets.
+                Je suis auto‑entrepreneur spécialisé en création de sites web, SEO, SEA et marketing digital.
+                J'accompagne les petites entreprises et entrepreneurs pour transformer leurs objectifs en résultats concrets.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
@@ -106,27 +99,13 @@ export function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="bg-white py-12 border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl text-blue-600 mb-2">{stat.value}</div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Services Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl text-gray-900 mb-4">Nos Services</h2>
+            <h2 className="text-3xl md:text-4xl text-gray-900 mb-4">Mes services</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Une gamme complète de services digitaux pour accompagner votre croissance
+              Services digitaux adaptés aux besoins des petites entreprises et entrepreneurs.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -171,16 +150,16 @@ export function HomePage({ onNavigate }: HomePageProps) {
               />
             </div>
             <div>
-              <h2 className="text-3xl md:text-4xl text-gray-900 mb-6">Pourquoi nous choisir ?</h2>
+              <h2 className="text-3xl md:text-4xl text-gray-900 mb-6">Pourquoi me choisir ?</h2>
               <p className="text-lg text-gray-600 mb-8">
-                Nous combinons expertise technique et créativité pour offrir des solutions digitales 
+                Je combine expertise technique et créativité pour offrir des solutions digitales
                 qui génèrent de vrais résultats pour votre entreprise.
               </p>
               <ul className="space-y-4">
                 {[
-                  'Équipe d\'experts certifiés',
-                  'Solutions personnalisées',
-                  'Support et suivi continu',
+                  'Expert indépendant certifié',
+                  'Solutions sur-mesure',
+                  'Accompagnement personnalisé',
                   'Résultats mesurables',
                   'Transparence totale',
                 ].map((item, index) => (
@@ -195,42 +174,13 @@ export function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl text-gray-900 mb-4">Ils nous font confiance</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Découvrez les témoignages de nos clients satisfaits
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-none shadow-lg">
-                <CardContent className="pt-6">
-                  <div className="flex mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="text-gray-600 mb-6 italic">"{testimonial.content}"</p>
-                  <div>
-                    <div className="text-gray-900">{testimonial.name}</div>
-                    <div className="text-sm text-gray-500">{testimonial.company}</div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl mb-6">Prêt à démarrer votre projet ?</h2>
           <p className="text-lg md:text-xl text-blue-100 mb-8">
-            Contactez-nous dès aujourd'hui pour un devis gratuit et personnalisé
+            Contactez-moi dès aujourd'hui pour un devis gratuit et personnalisé
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -245,7 +195,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
               onClick={() => onNavigate('about')}
               size="lg"
               variant="outline"
-              className="border-white bg-bleu-700 text-white hover:bg-white/10"
+              className="border-white bg-blue-700 text-white hover:bg-white/10"
             >
               En savoir plus
             </Button>
